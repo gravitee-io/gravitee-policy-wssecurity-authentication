@@ -141,6 +141,13 @@ public class WSSecurityAuthenticationPolicy {
                                         // We succeed to authenticate the user
                                         if (authentication != null) {
                                             executionContext.setAttribute(ExecutionContext.ATTR_USER, authentication.getUsername());
+
+                                            // Map user attributes into execution context attributes
+                                            if (authentication.getAttributes() != null) {
+                                                authentication.getAttributes().forEach((name, value) ->
+                                                        executionContext.setAttribute(ExecutionContext.ATTR_USER + '.' + name, value));
+                                            }
+
                                             request.metrics().setUser(authentication.getUsername());
                                             authenticated.set(true);
                                         }
