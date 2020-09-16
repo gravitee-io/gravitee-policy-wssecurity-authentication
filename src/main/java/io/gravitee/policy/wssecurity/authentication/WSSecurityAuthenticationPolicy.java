@@ -164,6 +164,8 @@ public class WSSecurityAuthenticationPolicy {
                             } else {
                                 sendError(policyChain, username);
                             }
+                        } else {
+                            sendError(policyChain, null);
                         }
                     } catch (Exception ex) {
                         sendError(policyChain, null);
